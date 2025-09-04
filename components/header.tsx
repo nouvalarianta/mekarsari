@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Search, Menu, X } from "lucide-react"
 import Image from "next/image"
 
-export function Header() {
+function HeaderUI() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
@@ -116,5 +116,13 @@ export function Header() {
         )}
       </div>
     </header>
+  )
+}
+
+export function Header() {
+  return (
+    <Suspense>
+      <HeaderUI />
+    </Suspense>
   )
 }

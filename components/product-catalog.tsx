@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo, useEffect, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { categories, products } from "@/lib/products"
 import Link from "next/link"
@@ -11,7 +11,7 @@ import { Eye, Heart } from "lucide-react"
 
 const INITIAL_PRODUCT_LIMIT = 6
 
-export function ProductCatalog() {
+function ProductCatalogUI() {
   const searchParams = useSearchParams()
   const searchQuery = searchParams.get("q") || ""
   const categoryQuery = searchParams.get("category") || "Semua"
@@ -196,5 +196,13 @@ export function ProductCatalog() {
         </div>
       </div>
     </section>
+  )
+}
+
+export function ProductCatalog() {
+  return (
+    <Suspense>
+      <ProductCatalogUI />
+    </Suspense>
   )
 }
